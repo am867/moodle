@@ -174,10 +174,12 @@ function lti_update_instance($lti, $mform) {
         $lti->typeid = $lti->urlmatchedtypeid;
     }
 
+    $lti_updated = $DB->update_record('lti', $lti);
+
     $completiontimeexpected = !empty($lti->completionexpected) ? $lti->completionexpected : null;
     \core_completion\api::update_completion_date_event($lti->coursemodule, 'lti', $lti->id, $completiontimeexpected);
 
-    return $DB->update_record('lti', $lti);
+    return $lti_updated;
 }
 
 /**

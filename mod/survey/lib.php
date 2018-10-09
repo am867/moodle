@@ -107,10 +107,12 @@ function survey_update_instance($survey) {
     $survey->questions    = $template->questions;
     $survey->timemodified = time();
 
+    $survey_updated = $DB->update_record("survey", $survey);
+
     $completiontimeexpected = !empty($survey->completionexpected) ? $survey->completionexpected : null;
     \core_completion\api::update_completion_date_event($survey->coursemodule, 'survey', $survey->id, $completiontimeexpected);
 
-    return $DB->update_record("survey", $survey);
+    return $survey_updated;
 }
 
 /**
