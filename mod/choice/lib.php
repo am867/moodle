@@ -191,12 +191,14 @@ function choice_update_instance($choice) {
         }
     }
 
+    $choice_updated = $DB->update_record('choice', $choice);
+
     // Add calendar events if necessary.
     choice_set_events($choice);
     $completionexpected = (!empty($choice->completionexpected)) ? $choice->completionexpected : null;
     \core_completion\api::update_completion_date_event($choice->coursemodule, 'choice', $choice->id, $completionexpected);
 
-    return $DB->update_record('choice', $choice);
+    return $choice_updated;
 
 }
 
