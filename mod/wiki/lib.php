@@ -79,12 +79,14 @@ function wiki_update_instance($wiki) {
         $wiki->forceformat = 0;
     }
 
+    $wiki_updated = $DB->update_record('wiki', $wiki);
+
     $completiontimeexpected = !empty($wiki->completionexpected) ? $wiki->completionexpected : null;
     \core_completion\api::update_completion_date_event($wiki->coursemodule, 'wiki', $wiki->id, $completiontimeexpected);
 
     # May have to add extra stuff in here #
 
-    return $DB->update_record('wiki', $wiki);
+    return $wiki_updated;
 }
 
 /**
