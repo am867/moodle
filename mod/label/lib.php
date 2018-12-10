@@ -86,12 +86,12 @@ function label_update_instance($label) {
     $label->timemodified = time();
     $label->id = $label->instance;
 
-    $label_updated = $DB->update_record("label", $label);
+    $labelupdated = $DB->update_record("label", $label);
 
     $completiontimeexpected = !empty($label->completionexpected) ? $label->completionexpected : null;
     \core_completion\api::update_completion_date_event($label->coursemodule, 'label', $label->id, $completiontimeexpected);
 
-    return $label_updated;
+    return $labelupdated;
 }
 
 /**
